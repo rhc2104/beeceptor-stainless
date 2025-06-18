@@ -1,6 +1,6 @@
 # Ronnie Beeceptor API Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/ronnie_beeceptor_api.svg)](https://pypi.org/project/ronnie_beeceptor_api/)
+[![PyPI version](<https://img.shields.io/pypi/v/ronnie_beeceptor_api.svg?label=pypi%20(stable)>)](https://pypi.org/project/ronnie_beeceptor_api/)
 
 The Ronnie Beeceptor API Python library provides convenient access to the Ronnie Beeceptor API REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
