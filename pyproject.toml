@@ -37,6 +37,8 @@ classifiers = [
 Homepage = "https://github.com/rhc2104/beeceptor-stainless"
 Repository = "https://github.com/rhc2104/beeceptor-stainless"
 
+[project.optional-dependencies]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.6"]
 
 [tool.rye]
 managed = true
