@@ -1,6 +1,6 @@
 # Ronnie Beeceptor API Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/ronnie_beeceptor_api.svg)](https://pypi.org/project/ronnie_beeceptor_api/)
+[![PyPI version](<https://img.shields.io/pypi/v/ronnie_beeceptor_api.svg?label=pypi%20(stable)>)](https://pypi.org/project/ronnie_beeceptor_api/)
 
 The Ronnie Beeceptor API Python library provides convenient access to the Ronnie Beeceptor API REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -15,12 +15,9 @@ The full API of this library can be found in [api.md](api.md).
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/ronnie-beeceptor-api-python.git
+# install from PyPI
+pip install --pre ronnie_beeceptor_api
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre ronnie_beeceptor_api`
 
 ## Usage
 
@@ -68,6 +65,39 @@ asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install --pre ronnie_beeceptor_api[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from ronnie_beeceptor_api import DefaultAioHttpClient
+from ronnie_beeceptor_api import AsyncRonnieBeeceptorAPI
+
+
+async def main() -> None:
+    async with AsyncRonnieBeeceptorAPI(
+        api_key=os.environ.get(
+            "RONNIE_BEECEPTOR_API_API_KEY"
+        ),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        users = await client.users.list()
+
+
+asyncio.run(main())
+```
 
 ## Using types
 
@@ -143,7 +173,7 @@ client.with_options(max_retries=5).users.list()
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from ronnie_beeceptor_api import RonnieBeeceptorAPI
@@ -208,9 +238,9 @@ user = response.parse()  # get the object that `users.list()` would have returne
 print(user)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/ronnie-beeceptor-api-python/tree/main/src/ronnie_beeceptor_api/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/rhc2104/beeceptor-stainless/tree/main/src/ronnie_beeceptor_api/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/ronnie-beeceptor-api-python/tree/main/src/ronnie_beeceptor_api/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/rhc2104/beeceptor-stainless/tree/main/src/ronnie_beeceptor_api/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -314,7 +344,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/ronnie-beeceptor-api-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/rhc2104/beeceptor-stainless/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
